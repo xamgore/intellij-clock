@@ -1,0 +1,37 @@
+<idea-plugin>
+    <id>intellij-clock</id>
+    <name>Clock Widget</name>
+    <vendor url="https://plugins.jetbrains.com/plugin/11252">Igor Strebezhev</vendor>
+
+    <description><![CDATA[
+        A simple clock widget for IntelliJ.<br>
+        The current time is displayed in the right bottom of the IDE window.<br>
+        Especially useful when writing code in the full screen mode.<br>
+        <br>
+        <div style="width:267px; height:27px; box-sizing: border-box;
+            background: url(https://github.com/xamgore/intellij-clock/raw/master/src/main/resources/META-INF/screenshot.png) no-repeat"></div>
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <idea-version since-build="131"/>
+
+    <!-- uncomment to enable plugin in all products -->
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+
+    <project-components>
+        <component>
+            <implementation-class>clock.Registration</implementation-class>
+            <loadForDefaultProject/>
+        </component>
+    </project-components>
+
+</idea-plugin>
