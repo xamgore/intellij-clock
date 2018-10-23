@@ -8,7 +8,6 @@ branches:
   only:
   - master
   - dev
-  - travis
 
 script: ./gradlew check
 
@@ -20,3 +19,13 @@ cache:
   directories:
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
+
+after_success:
+- >
+  test $TRAVIS_PULL_REQUEST = "false" &&
+    ./gradlew buildPlugin &&
+    curl -i --header "Authorization: Bearer $TOKEN" \
+         -F xmlId=intellij-clock \
+         -F file=@$(ls -d1 build/distributions/*) \
+         -F channel=Stable \
+         https://plugins.jetbrains.com/plugin/uploadPlugin
