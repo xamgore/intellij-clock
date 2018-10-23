@@ -8,15 +8,13 @@ import javax.swing.JLabel
 import javax.swing.Timer
 
 class Widget : CustomStatusBarWidget {
-    private val label = JLabel(time())
+    val label = JLabel(time())
 
-    private val timer = Timer(1000) { label.text = time() }
+    val timer = Timer(1000) { label.text = time() }
 
-    private fun time() = LocalDateTime.now().run {
+    fun time() = LocalDateTime.now().run {
         "   %02d:%02d   ".format(hour, minute)
     }
-
-    override fun ID() = "intellij-clock"
 
     override fun install(statusBar: StatusBar) = timer.start()
 
@@ -25,4 +23,10 @@ class Widget : CustomStatusBarWidget {
     override fun getComponent() = label
 
     override fun getPresentation(type: StatusBarWidget.PlatformType) = null
+
+    override fun ID() = ID
+
+    companion object {
+        const val ID = "intellij-clock"
+    }
 }
