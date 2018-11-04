@@ -1,4 +1,4 @@
-## Clock widget plugin for Intellij IDEA
+## Clock widget plugin for Intellij IDEA [![Build Status](https://travis-ci.org/xamgore/intellij-clock.svg?branch=master)](https://travis-ci.org/xamgore/intellij-clock)
 
 Plugin displays the current time in the right bottom of the IDE window. That is especially useful when writing code in the full screen mode.
 
