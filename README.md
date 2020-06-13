@@ -31,6 +31,6 @@ We use gradle to build the plugin. It comes with a wrapper script (`gradlew` or 
 
 To import this project in IntelliJ, use **File | New | Project from Existing Sources** and select `build.gradle` from the root directory of the plugin.
 
-## Travis CI
+## Deploy
 
-The project is configured to build and run tests with Travis CI, which you can enable in your forks.
+Fresh project versions are set to be auto published in https://plugins.jetbrains.com via Travis CI.
