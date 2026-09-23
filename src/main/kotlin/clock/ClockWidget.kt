@@ -6,6 +6,8 @@ import com.intellij.util.Consumer
 import java.awt.Component
 import java.awt.event.MouseEvent
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import javax.swing.Timer
 
 class ClockWidget : StatusBarWidget {
@@ -30,9 +32,7 @@ class ClockWidget : StatusBarWidget {
         override fun getAlignment(): Float = Component.CENTER_ALIGNMENT
 
         override fun getText(): String {
-            return LocalDateTime.now().run {
-                "%02d:%02d".format(hour, minute)
-            }
+            return LocalDateTime.now().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))
         }
     }
 
