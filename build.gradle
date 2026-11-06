@@ -1,44 +1,52 @@
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
+
 plugins {
-    id 'org.jetbrains.intellij' version '0.4.16'
-    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+    id 'org.jetbrains.intellij.platform' version '2.20.0'
+    id 'org.jetbrains.kotlin.jvm' version '2.4.21'
 }
 
-group 'xamgore'
-version '2.0.0'
+group = 'xamgore'
+version = '2.1.0'
 
 repositories {
     mavenCentral()
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    intellijPlatform {
+        intellijIdea('2026.2')
+        pluginVerifier()
+    }
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+kotlin {
+    jvmToolchain(25)
+    compilerOptions {
+        // Use the platform's JVM defaults without bridges to deprecated widget methods.
+        jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
+    }
 }
 
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
+intellijPlatform {
+    buildSearchableOptions = false
 
-repositories {
-    mavenCentral()
-}
+    pluginConfiguration {
+        ideaVersion {
+            sinceBuild = '262.8665.258'
+            untilBuild = '263.*'
+        }
+    }
 
-intellij {
-    version '2020.1.1'
-    //Disables updating since-build attribute in plugin.xml
-    updateSinceUntilBuild false
+    pluginVerification {
+        // All required APIs ship with the IDE.
+        freeArgs = ['-offline']
+        ides {
+            current()
+            create(IntelliJPlatformType.IntellijIdea, '2026.3')
+        }
+    }
 }
-
-patchPluginXml {
-//    changeNotes """
-//    """
-}
-
-//publishPlugin {
-//    buildPlugin
-//    username intellijPublishUsername
-//    password intellijPublishPassword
-//}
