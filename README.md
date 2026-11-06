@@ -12,11 +12,11 @@ Plugin is published on [plugins.jetbrains.com](https://plugins.jetbrains.com/plu
 
 ## Clock format
 
-Click the clock to choose **24 hours**, **12 hours**, **By locale**, or **Custom (Registry)**. The default is **24 hours**.
+Click the clock to choose **24 hours**, **12 hours**, **By locale**, or **Custom**. The default is **24 hours**.
 
 Open **Registry…** through **Find Action** to edit the advanced options.
 
-* `intellij-clock.format.pattern` sets the Java `DateTimeFormatter` pattern for **Custom (Registry)**. For example, `EEE d MMM, HH:mm` includes the date. An empty or invalid pattern displays 24-hour time.
+* `intellij-clock.format.pattern` sets the Java `DateTimeFormatter` pattern for **Custom**. For example, `EEE d MMM, HH:mm` includes the date. An empty or invalid pattern displays 24-hour time.
 * `intellij-clock.format.locale` sets the formatting locale for all modes. Use a BCP 47 tag such as `ru-RU` or `zh-CN`. Leave it empty to use the runtime's formatting locale.
 
 ## Building

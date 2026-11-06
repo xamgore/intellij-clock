@@ -14,7 +14,7 @@ internal enum class ClockFormat(val label: String, private val formatter: DateTi
     HOURS_24("24 hours", twentyFourHours),
     HOURS_12("12 hours", DateTimeFormatter.ofPattern("h:mm a")),
     LOCALE("By locale", DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)),
-    CUSTOM("Custom (Registry)", twentyFourHours);
+    CUSTOM("Custom", twentyFourHours);
 
     fun render(time: ZonedDateTime, localeTag: String, pattern: String): String {
         val locale = parseLocale(localeTag)
