@@ -5,6 +5,8 @@ Plugin displays the current time in the right bottom of the IDE window. That is 
 <img src="https://github.com/xamgore/intellij-clock/raw/master/src/main/resources/META-INF/screenshot.png" alt="screenshot with plugin" width="230">
 <br>
 
+Click the clock to choose a 24-hour, 12-hour, locale-based, or custom format (set in Registry under `intellij-clock.format.pattern`).
+
 Plugin is published on [plugins.jetbrains.com](https://plugins.jetbrains.com/plugin/11252-clock-widget) and can be easily installed via **Settings | Plugins** window.
 
 
@@ -12,7 +14,7 @@ Plugin is published on [plugins.jetbrains.com](https://plugins.jetbrains.com/plu
 
 ## Clock format
 
-Click the clock to choose **24 hours**, **12 hours**, **By locale**, or **Custom**. The default is **24 hours**.
+The default format is **24 hours**.
 
 Open **Registry…** through **Find Action** to edit the advanced options.
 
