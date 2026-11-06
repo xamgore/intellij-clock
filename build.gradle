@@ -1,4 +1,5 @@
 import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+import org.jetbrains.intellij.platform.gradle.tasks.VerifyPluginTask.FailureLevel
 import org.jetbrains.kotlin.gradle.dsl.JvmDefaultMode
 
 plugins {
@@ -18,13 +19,13 @@ repositories {
 
 dependencies {
     intellijPlatform {
-        intellijIdea('2026.2')
+        intellijIdea('2025.3.2')
         pluginVerifier()
     }
 }
 
 kotlin {
-    jvmToolchain(25)
+    jvmToolchain(21)
     compilerOptions {
         // Use the platform's JVM defaults without bridges to deprecated widget methods.
         jvmDefault = JvmDefaultMode.NO_COMPATIBILITY
@@ -36,7 +37,7 @@ intellijPlatform {
 
     pluginConfiguration {
         ideaVersion {
-            sinceBuild = '262.8665.258'
+            sinceBuild = '253.30387.90'
             untilBuild = '263.*'
         }
     }
@@ -44,8 +45,16 @@ intellijPlatform {
     pluginVerification {
         // All required APIs ship with the IDE.
         freeArgs = ['-offline']
+        failureLevel = [
+            FailureLevel.COMPATIBILITY_PROBLEMS,
+            FailureLevel.INTERNAL_API_USAGES,
+            FailureLevel.OVERRIDE_ONLY_API_USAGES,
+            FailureLevel.PLUGIN_STRUCTURE_WARNINGS,
+        ]
         ides {
             current()
+            create(IntelliJPlatformType.IntellijIdea, '2026.1')
+            create(IntelliJPlatformType.IntellijIdea, '2026.2')
             create(IntelliJPlatformType.IntellijIdea, '2026.3')
         }
     }
