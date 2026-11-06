@@ -1,4 +1,4 @@
-## Clock widget plugin for Intellij IDEA [![Build Status](https://travis-ci.org/xamgore/intellij-clock.svg?branch=master)](https://travis-ci.org/xamgore/intellij-clock)
+## Clock widget plugin for Intellij IDEA [![Build Status](https://github.com/xamgore/intellij-clock/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/xamgore/intellij-clock/actions/workflows/build.yml)
 
 Plugin displays the current time in the right bottom of the IDE window. That is especially useful when writing code in the full screen mode.
 
@@ -17,7 +17,7 @@ git clone https://github.com/xamgore/intellij-clock.git
 cd intellij-clock
 ```
 
-We use gradle to build the plugin. It comes with a wrapper script (`gradlew` or `gradlew.bat` in the root of the repository) which downloads appropriate version of gradle automatically as long as you have JDK installed. Common tasks are:
+We use gradle to build the plugin. It comes with a wrapper script (`gradlew` or `gradlew.bat` in the root of the repository) which downloads appropriate version of gradle automatically as long as you have JDK 25 installed. Common tasks are:
 
 * `./gradlew buildPlugin` — fully build plugin and create an archive at `build/distributions` which can be installed into IntelliJ IDEA via `Install plugin from disk` action found in **File | Settings | Plugins**.
 
@@ -27,10 +27,10 @@ We use gradle to build the plugin. It comes with a wrapper script (`gradlew` or 
 
 ## Developing
 
-[Here](https://www.jetbrains.com/idea/download/) you can get the latest Intellij IDEA Community Edition. When hacking on the plugin, you will need **DevKit** plugin.
+[Download IntelliJ IDEA](https://www.jetbrains.com/idea/download/) and install the **Plugin DevKit** plugin for development.
 
-To import this project in IntelliJ, use **File | New | Project from Existing Sources** and select `build.gradle` from the root directory of the plugin.
+Use **File | Open** to open the repository directory as a Gradle project.
 
 ## Deploy
 
-Fresh project versions are set to be auto published in https://plugins.jetbrains.com via Travis CI.
+Fresh project versions can be published to [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/11252-clock-widget) using the ZIP built by GitHub Actions.
