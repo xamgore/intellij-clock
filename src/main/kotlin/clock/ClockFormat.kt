@@ -11,13 +11,19 @@ import java.util.Locale
 private val twentyFourHours = DateTimeFormatter.ofPattern("HH:mm")
 
 internal enum class ClockFormat(val label: String, private val formatter: DateTimeFormatter) {
-    HOURS_24("24 hours", twentyFourHours),
-    HOURS_12("12 hours", DateTimeFormatter.ofPattern("h:mm a")),
-    LOCALE("By locale", DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)),
-    CUSTOM("Custom", twentyFourHours);
+    HOURS_24("HH:mm", twentyFourHours),
+    HOURS_24_UNPADDED("H:mm", DateTimeFormatter.ofPattern("H:mm")),
+    HOURS_12_PADDED("hh:mm a", DateTimeFormatter.ofPattern("hh:mm a")),
+    HOURS_12("h:mm a", DateTimeFormatter.ofPattern("h:mm a")),
+    CUSTOM("custom", twentyFourHours),
+    LOCALE("By locale", DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
 
     fun render(time: ZonedDateTime, localeTag: String, pattern: String): String {
-        val locale = parseLocale(localeTag)
+        val locale = if (this == CUSTOM || this == LOCALE) {
+            parseLocale(localeTag)
+        } else {
+            Locale.getDefault(Locale.Category.FORMAT)
+        }
         if (this == CUSTOM && pattern.isNotBlank()) {
             try {
                 return DateTimeFormatter.ofPattern(pattern).format(time, locale)

@@ -1,7 +1,6 @@
 package clock
 
 import com.intellij.ide.util.PropertiesComponent
-import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.ui.popup.JBPopupFactory
 import com.intellij.openapi.ui.popup.PopupStep
 import com.intellij.openapi.ui.popup.util.BaseListPopupStep
@@ -45,26 +44,39 @@ class ClockWidget : StatusBarWidget, StatusBarWidget.TextPresentation {
 
     override fun getClickConsumer(): Consumer<MouseEvent> = Consumer { event ->
         if (SwingUtilities.isLeftMouseButton(event)) {
-            val step = object : BaseListPopupStep<ClockFormat>("Clock Format", ClockFormat.entries) {
+            val formats = ClockFormat.entries.filterNot { it == ClockFormat.LOCALE }
+            val step = object : BaseListPopupStep<ClockFormat>("Clock Format", formats) {
                 override fun getTextFor(value: ClockFormat): String = value.label
 
                 override fun onChosen(selectedValue: ClockFormat, finalChoice: Boolean): PopupStep<*>? = doFinalStep {
+                    if (selectedValue == ClockFormat.CUSTOM && !editCustomFormat(event.component)) {
+                        return@doFinalStep
+                    }
                     PropertiesComponent.getInstance().setValue(FORMAT_KEY, selectedValue.name, ClockFormat.HOURS_24.name)
                     statusBar?.updateWidget(ID())
-                    if (selectedValue == ClockFormat.CUSTOM) {
-                        val actionManager = ActionManager.getInstance()
-                        actionManager.getAction("ShowRegistry")?.let { action ->
-                            actionManager.tryToExecute(action, null, event.component, null, false)
-                        }
-                    }
                 }
             }
-            step.setDefaultOptionIndex(selectedFormat().ordinal)
+            step.setDefaultOptionIndex(formats.indexOf(selectedFormat()).coerceAtLeast(0))
             JBPopupFactory.getInstance().createListPopup(step).show(RelativePoint(event))
         }
     }
 
     override fun ID() = ID
+
+    private fun editCustomFormat(parent: Component): Boolean {
+        val pattern = Registry.get(PATTERN_KEY)
+        val locale = Registry.get(LOCALE_KEY)
+        val dialog = CustomClockFormatDialog(
+            parent,
+            if (pattern.isChangedFromDefault()) pattern.asString() else "",
+            locale.asString(),
+        )
+        if (!dialog.showAndGet()) return false
+
+        if (dialog.pattern.isBlank()) pattern.resetToDefault() else pattern.setValue(dialog.pattern)
+        locale.setValue(dialog.localeTag)
+        return true
+    }
 
     private fun selectedFormat(): ClockFormat {
         val savedFormat = PropertiesComponent.getInstance().getValue(FORMAT_KEY)
