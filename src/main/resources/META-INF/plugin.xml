@@ -15,9 +15,9 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <statusBarWidgetFactory id="intellij-clock" implementation="clock.ClockStatusBarWidgetFactory" order="last" />
-        <registryKey key="intellij-clock.format.pattern" defaultValue=""
+        <registryKey key="intellij-clock.format.pattern" defaultValue="EEE d MMM, HH:mm"
                      description="DateTimeFormatter pattern for the custom Clock Widget format"/>
-        <registryKey key="intellij-clock.format.locale" defaultValue=""
-                     description="Clock Widget formatting locale as a BCP 47 tag, such as ru-RU or zh-CN"/>
+        <registryKey key="intellij-clock.format.locale" defaultValue="system"
+                     description="Clock Widget formatting locale. Use system or a BCP 47 tag such as ru-RU or zh-CN."/>
     </extensions>
 </idea-plugin>

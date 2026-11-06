@@ -34,9 +34,10 @@ internal enum class ClockFormat(val label: String, private val formatter: DateTi
         withLocale(locale).withDecimalStyle(DecimalStyle.of(locale)).format(time)
 
     private fun parseLocale(tag: String): Locale {
-        if (tag.isNotBlank()) {
+        val languageTag = tag.trim()
+        if (languageTag.isNotEmpty() && !languageTag.equals("system", ignoreCase = true)) {
             try {
-                return Locale.Builder().setLanguageTag(tag.trim()).build()
+                return Locale.Builder().setLanguageTag(languageTag).build()
             } catch (_: IllformedLocaleException) {
                 // Fall back to the runtime's formatting locale.
             }

@@ -1,6 +1,7 @@
 package clock
 
 import com.intellij.ide.util.PropertiesComponent
+import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.ui.popup.JBPopupFactory
 import com.intellij.openapi.ui.popup.PopupStep
 import com.intellij.openapi.ui.popup.util.BaseListPopupStep
@@ -47,10 +48,15 @@ class ClockWidget : StatusBarWidget, StatusBarWidget.TextPresentation {
             val step = object : BaseListPopupStep<ClockFormat>("Clock Format", ClockFormat.entries) {
                 override fun getTextFor(value: ClockFormat): String = value.label
 
-                override fun onChosen(selectedValue: ClockFormat, finalChoice: Boolean): PopupStep<*>? {
+                override fun onChosen(selectedValue: ClockFormat, finalChoice: Boolean): PopupStep<*>? = doFinalStep {
                     PropertiesComponent.getInstance().setValue(FORMAT_KEY, selectedValue.name, ClockFormat.HOURS_24.name)
                     statusBar?.updateWidget(ID())
-                    return PopupStep.FINAL_CHOICE
+                    if (selectedValue == ClockFormat.CUSTOM) {
+                        val actionManager = ActionManager.getInstance()
+                        actionManager.getAction("ShowRegistry")?.let { action ->
+                            actionManager.tryToExecute(action, null, event.component, null, false)
+                        }
+                    }
                 }
             }
             step.setDefaultOptionIndex(selectedFormat().ordinal)
