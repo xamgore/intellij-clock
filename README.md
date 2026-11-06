@@ -10,6 +10,15 @@ Plugin is published on [plugins.jetbrains.com](https://plugins.jetbrains.com/plu
 
 <img src="https://github.com/xamgore/intellij-clock/raw/master/src/main/resources/META-INF/plugins.png" alt="plugins window in intellij idea" width="700">
 
+## Clock format
+
+Click the clock to choose **24 hours**, **12 hours**, **By locale**, or **Custom (Registry)**. The default is **24 hours**.
+
+Open **Registry…** through **Find Action** to edit the advanced options.
+
+* `intellij-clock.format.pattern` sets the Java `DateTimeFormatter` pattern for **Custom (Registry)**. For example, `EEE d MMM, HH:mm` includes the date. An empty or invalid pattern displays 24-hour time.
+* `intellij-clock.format.locale` sets the formatting locale for all modes. Use a BCP 47 tag such as `ru-RU` or `zh-CN`. Leave it empty to use the runtime's formatting locale.
+
 ## Building
 
 ```bash
@@ -17,20 +26,16 @@ git clone https://github.com/xamgore/intellij-clock.git
 cd intellij-clock
 ```
 
-We use gradle to build the plugin. It comes with a wrapper script (`gradlew` or `gradlew.bat` in the root of the repository) which downloads appropriate version of gradle automatically as long as you have JDK 25 installed. Common tasks are:
+The plugin targets IntelliJ IDEA 2025.3.2 through 2026.3. Install JDK 21 and use the Gradle wrapper (`gradlew` or `gradlew.bat`).
 
-* `./gradlew buildPlugin` — fully build plugin and create an archive at `build/distributions` which can be installed into IntelliJ IDEA via `Install plugin from disk` action found in **File | Settings | Plugins**.
-
-* `./gradlew runIde` — run a development IDE with the plugin installed.
-
-* `./gradlew test` — run all tests.
+* `./gradlew buildPlugin` creates the ZIP in `build/distributions`. Install it via **Settings | Plugins | Install Plugin from Disk**.
+* `./gradlew runIde` opens a development IDE with the plugin installed.
+* `./gradlew check verifyPluginStructure verifyPlugin` runs the project checks and verifies the plugin against the supported IDE branches.
 
 ## Developing
 
-[Download IntelliJ IDEA](https://www.jetbrains.com/idea/download/) and install the **Plugin DevKit** plugin for development.
-
-Use **File | Open** to open the repository directory as a Gradle project.
+[Download IntelliJ IDEA](https://www.jetbrains.com/idea/download/) and use **File | Open** to open the repository directory as a Gradle project. JetBrains recommends **Plugin DevKit** for IDE inspections and plugin development tooling. The Gradle build runs independently.
 
 ## Deploy
 
-Fresh project versions can be published to [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/11252-clock-widget) using the ZIP built by GitHub Actions.
+Push a tag such as `v2.1.0` that matches the version in `build.gradle`. GitHub Actions builds and verifies the plugin, then automatically submits the ZIP to [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/11252-clock-widget) for review.
