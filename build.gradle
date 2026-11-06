@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'xamgore'
-version = '2.1.0'
+version = '2.1.1'
 
 repositories {
     mavenCentral()
@@ -38,7 +38,7 @@ intellijPlatform {
     pluginConfiguration {
         ideaVersion {
             sinceBuild = '253.30387.90'
-            untilBuild = '263.*'
+            untilBuild = provider { null }
         }
     }
 

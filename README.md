@@ -28,11 +28,11 @@ git clone https://github.com/xamgore/intellij-clock.git
 cd intellij-clock
 ```
 
-The plugin targets IntelliJ IDEA 2025.3.2 through 2026.3. Install JDK 21 and use the Gradle wrapper (`gradlew` or `gradlew.bat`).
+The minimum IntelliJ IDEA version is 2025.3.2. CI checks 2025.3.2, 2026.1, 2026.2, and 2026.3. Install JDK 21 and use the Gradle wrapper (`gradlew` or `gradlew.bat`).
 
 * `./gradlew buildPlugin` creates the ZIP in `build/distributions`. Install it via **Settings | Plugins | Install Plugin from Disk**.
 * `./gradlew runIde` opens a development IDE with the plugin installed.
-* `./gradlew check verifyPluginStructure verifyPlugin` runs the project checks and verifies the plugin against the supported IDE branches.
+* `./gradlew check verifyPluginStructure verifyPlugin` runs the project checks and verifies the plugin against the IDE versions listed above.
 
 ## Developing
 
@@ -40,4 +40,4 @@ The plugin targets IntelliJ IDEA 2025.3.2 through 2026.3. Install JDK 21 and use
 
 ## Deploy
 
-Push a tag such as `v2.1.0` that matches the version in `build.gradle`. GitHub Actions builds and verifies the plugin, then automatically submits the ZIP to [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/11252-clock-widget) for review.
+Push a tag such as `v2.1.1` that matches the version in `build.gradle`. GitHub Actions builds and verifies the plugin, then automatically submits the ZIP to [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/11252-clock-widget) for review.
